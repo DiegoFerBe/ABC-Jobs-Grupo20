@@ -29,8 +29,15 @@ def enviar_examen(examen_json):
 class VistaTest(Resource):
 
     def post(self):
-        args=({request.json},)
-        enviar_examen.apply_async(args)
+        for i in range(0, 100):
+            args=({
+                "id": int(uuid.uuid4()),
+                "Respuesta_1": random.randint(0, 50),
+                "Respuesta_2": random.randint(0, 50),
+                "falla": random.randint(0, 7)
+            },)
+
+            enviar_examen.apply_async(args)
         return "Enviados", 200
 
 api.add_resource(VistaTest, '/test')
