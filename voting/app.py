@@ -2,6 +2,7 @@ from examiner import create_app
 from flask_restful import Resource, Api
 from flask import Flask, request
 from celery import Celery
+from validador.app import ProfessionalSelection, User
 from .tasks import voting
 import requests
 import json
@@ -39,3 +40,5 @@ class VistaRating(Resource):
 
 api.add_resource(VistaRatings, '/ratings')
 api.add_resource(VistaRating, '/rating/<int:id>')
+api.add_resource(User, '/user')
+api.add_resource(ProfessionalSelection, '/professional-selection')
