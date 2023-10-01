@@ -1,4 +1,6 @@
-from app import create_app
+from flask import Flask
+
+#from app import create_app
 
 #from .modelos import db, Cancion, Usuario, Album, Medio
 #from .modelos import AlbumSchema, UsuarioSchema
@@ -9,10 +11,13 @@ from app import create_app
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 
-from app.vistas.vistas import ProfessionalSelection, User
+from .vistas import ViewVoting, User
 
 
-app = create_app('default') 
+app = Flask('validador')
+
+
+#app = create_app('default') 
 app_context = app.app_context()
 app_context.push()
 
@@ -23,10 +28,11 @@ app_context.push()
 #cors = CORS(app)
 
 api = Api(app)
+app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 jwt = JWTManager(app)
 
 api.add_resource(User, '/user')
-api.add_resource(ProfessionalSelection, '/professional-selection')
+api.add_resource(ViewVoting, '/ver-resultados')
 
 
 
